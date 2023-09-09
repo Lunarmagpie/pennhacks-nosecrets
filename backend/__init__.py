@@ -1,26 +1,41 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
+import starlette.status as status
 
-from pydantic import BaseModel
+import datetime
+
+from backend.google import get_emails, new_auth_url, authenticate
+
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="build/static"), name="static")
 
 
-@app.get("/")
+@app.get("/profile")
+async def index(
+    state: str | None = None, code: str | None = None, scope: str | None = None
+):
+    """
+    Args:
+        state:
+            The client ID that we passed into flow when we created it?
+        code:
+            The refresh token.
+        scope:
+            The valid scopes.
+    """
+    print(
+        get_emails(
+            await authenticate(state, code),
+            after=datetime.datetime.now() - datetime.timedelta(hours=24),
+        )
+    )
+
+
+@app.get("/login")
 async def function():
-    response = FileResponse("build/index.html")
-    response.headers["Cross-Origin-Opener-Policy"] = "same-origin-allow-popups"
-    return response
-
-
-class Credentials(BaseModel):
-    credential: str
-    client_id: str
-
-
-@app.post("/api/login/")
-async def token(info: Credentials):
-    print(info)
+    url = new_auth_url()
+    return RedirectResponse(url=url, status_code=status.HTTP_302_FOUND)
