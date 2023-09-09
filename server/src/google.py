@@ -56,7 +56,9 @@ def get_emails(creds: Credentials, *, after: datetime.datetime) -> list[Email]:
         txt = service.users().messages().get(userId="me", id=msg["id"]).execute()
 
         time: int = datetime.datetime.fromtimestamp(int(txt["internalDate"][:-3]))
-        print(time)
+
+        if time < after:
+            return emails
 
         try:
             emails.append(Email.from_json(txt))
@@ -64,16 +66,12 @@ def get_emails(creds: Credentials, *, after: datetime.datetime) -> list[Email]:
             print("Failed parisng email")
             traceback.print_exception(e)
 
-        if time < after:
-            return emails
-
-
     return emails
 
 
 @dataclasses.dataclass
 class Email:
-    # time_sent: datetime.datetime
+    uid: str
     sender: str
     subject: str
     body: str
@@ -85,7 +83,7 @@ class Email:
                 if d["name"] == name:
                     return d["value"]
 
-        # time_sent = datetime.datetime(int(email["internalDate"]))
+        uid = email["internalDate"]
         sender = get_header("From")
         subject = get_header("Subject")
 
@@ -97,11 +95,17 @@ class Email:
         # Now, the data obtained is in lxml. So, we will parse
         # it with BeautifulSoup library
         soup = BeautifulSoup(decoded_data, "lxml")
-        body = soup.body()
+        if soup.body:
+            body = soup.body()
+        else:
+            body = ""
 
         return Email(
-            # time_sent=time_sent,
+            uid=uid,
             sender=sender,
             subject=subject,
             body=body,
         )
+
+    def __hash__(self) -> int:
+        return hash(self.uid)

@@ -6,7 +6,10 @@ import starlette.status as status
 
 import datetime
 
-from server.src.google import get_emails, new_auth_url, authenticate
+from server.src.google import new_auth_url, authenticate
+from server.src.safe_create_task import create_task
+from server.src.email_poll import EmailPoll
+from server.src.user import User
 
 
 app = FastAPI()
@@ -34,12 +37,14 @@ async def profile(
         scope:
             The valid scopes.
     """
-    print(
-        get_emails(
-            await authenticate(state, code),
-            after=datetime.datetime.now() - datetime.timedelta(hours=24),
-        )
+    cred = await authenticate(state, code)
+
+    user = User(
+        phone_number=None,
+        cred=cred,
     )
+
+    create_task(EmailPoll(user).start())
 
 
 @app.get("/login")
