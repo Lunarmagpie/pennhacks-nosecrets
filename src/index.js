@@ -8,7 +8,6 @@ import Main from "./components/main";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Menubar />
-    <Main />
+    <App />
   </React.StrictMode>
 );
