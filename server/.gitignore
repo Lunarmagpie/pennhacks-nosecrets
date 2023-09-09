@@ -1,2 +1,2 @@
-.pyc
-__pycahce__
+*.pyc
+__pycahce__/*
