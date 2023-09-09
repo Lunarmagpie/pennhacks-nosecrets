@@ -5,7 +5,7 @@ export default class Menubar extends React.Component {
   render() {
     return (
       <div className="main">
-        <img src="bonsai.svg" className="logo"></img>
+        <a href="/"><img src="bonsai.svg" className="logo"/></a>
         <div className="header-element">About</div>
         <div className="header-element">For Buisness</div>
         <div className="header-element">Plans and Pricing</div>

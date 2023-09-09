@@ -60,11 +60,7 @@ def get_emails(creds: Credentials, *, after: datetime.datetime) -> list[Email]:
         if time < after:
             return emails
 
-        try:
-            emails.append(Email.from_json(txt))
-        except Exception as e:
-            print("Failed parisng email")
-            traceback.print_exception(e)
+        emails.append(Email.from_json(msg["id"], txt))
 
     return emails
 
@@ -75,28 +71,32 @@ class Email:
     sender: str
     subject: str
     body: str
+    url: str
 
     @classmethod
-    def from_json(cls, email: dict) -> t.Self:
+    def from_json(cls, uid: str, email: dict) -> t.Self:
         def get_header(name: str) -> str:
             for d in email["payload"]["headers"]:
                 if d["name"] == name:
                     return d["value"]
 
-        uid = email["internalDate"]
+        uid = str(uid)
         sender = get_header("From")
         subject = get_header("Subject")
 
-        parts = email["payload"]["parts"][0]
-        data = parts["body"]["data"]
-        data = data.replace("-", "+").replace("_", "/")
-        decoded_data = base64.b64decode(data)
+        if "parts" in email["payload"]:
+            parts = email["payload"]["parts"][0]
+            data = parts["body"]["data"]
+            data = data.replace("-", "+").replace("_", "/")
+            decoded_data = base64.b64decode(data)
 
-        # Now, the data obtained is in lxml. So, we will parse
-        # it with BeautifulSoup library
-        soup = BeautifulSoup(decoded_data, "lxml")
-        if soup.body:
-            body = soup.body()
+            # Now, the data obtained is in lxml. So, we will parse
+            # it with BeautifulSoup library
+            soup = BeautifulSoup(decoded_data, "lxml")
+            if soup.body:
+                body = soup.body()
+            else:
+                body = ""
         else:
             body = ""
 
@@ -105,6 +105,7 @@ class Email:
             sender=sender,
             subject=subject,
             body=body,
+            url=f"https://mail.google.com/mail/u/0/#inbox/{uid}",
         )
 
     def __hash__(self) -> int:

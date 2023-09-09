@@ -6,6 +6,7 @@ from google.oauth2.credentials import Credentials
 
 USERS = {}
 
+
 @dataclasses.dataclass
 class User:
     state: str
@@ -14,7 +15,10 @@ class User:
     cred: Credentials | None = None
 
     # User provided catagories that they want to see.
-    catagories: list[str] = dataclasses.field(default_factory=list)
+    whitelist: list[str] = dataclasses.field(default_factory=list)
+    # User provided catagories that they don't want to see.
+    blacklist: list[str] = dataclasses.field(default_factory=list)
+
     language: str | None = None
 
     def __post_init__(self):

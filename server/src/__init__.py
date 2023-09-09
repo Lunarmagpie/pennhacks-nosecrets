@@ -77,10 +77,15 @@ async def set_language(data: SetLanguage):
 
 class SetCategories(BaseModel):
     state: str
-    categories: list[str]
+    items: list[str]
 
 
-@app.post("/api/set/categories")
-async def set_categories(data: SetCategories):
+@app.post("/api/set/whitelist")
+async def set_whitelist(data: SetCategories):
     user = User.from_state(data.state)
-    user.catagories = data.categories
+    user.whitelist = data.items
+
+@app.post("/api/set/blacklist")
+async def set_blacklist(data: SetCategories):
+    user = User.from_state(data.state)
+    user.blacklist = data.items
