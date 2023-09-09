@@ -24,7 +24,7 @@ async def text_email(user: User, email: Email):
         None,
         functools.partial(
             client.messages.create,
-            to=user.phone_number or "+16316729952",
+            to=user.phone_number,
             from_=PHONE_NUMBER,
             body=f"Email from {email.sender}\n{summary}",
         ),

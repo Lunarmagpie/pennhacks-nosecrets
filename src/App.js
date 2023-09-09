@@ -3,37 +3,35 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Main2 from "./Main2";
+import Menubar from "./components/menubar";
+import Main from "./components/main";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Main2 />} />
-          <Route path="/profile" element={<Main2 />} />
-          {/* <Route path="/test" element={<Main2 />} /> */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Menubar />
+                <Main />
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                <Menubar />
+                "HELLO EVEYRNYAN"
+              </>
+            }
+          />
         </Routes>
       </Router>
     </>
-    // <GoogleOAuthProvider clientId={clientId}>
-    //   <GoogleLogin
-    //     onSuccess={credentialResponse => {
-    //       fetch("/api/login", {
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //           credential: credentialResponse.credential,
-    //           client_id: credentialResponse.clientId,
-    //         }),
-    //         headers: {
-    //           "Content-type": "application/json; charset=UTF-8"
-    //         },
-    //       })
-    //     }}
-    //     onError={() => {
-    //       console.log('Login Failed');
-    //     }}
-    //   />
-    // </GoogleOAuthProvider>
   );
 }
 
