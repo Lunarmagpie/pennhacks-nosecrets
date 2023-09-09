@@ -27,11 +27,6 @@ async def root():
     return {"message": "Hey How are you? Why are you here?"}
 
 
-@app.get("/t")
-async def r():
-    return {"message": "Hey How are you? Why are you here?"}
-
-
 @app.post("/summarize/")
 async def summarize_email(email_text: str, category: str):
     prompt = (

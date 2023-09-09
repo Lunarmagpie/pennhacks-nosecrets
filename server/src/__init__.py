@@ -46,3 +46,6 @@ async def profile(
 async def function():
     url = new_auth_url()
     return RedirectResponse(url=url, status_code=status.HTTP_302_FOUND)
+
+
+
