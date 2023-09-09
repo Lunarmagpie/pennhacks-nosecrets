@@ -14,6 +14,7 @@ export default class MainArea extends React.Component {
           Use Bonsai's AI technology to send short summaries of your important
           emails straight to your phone.
         </div>
+        <div class="main-body"></div>
       </div>
     );
   }

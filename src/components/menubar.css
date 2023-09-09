@@ -10,4 +10,23 @@
 
 .logo {
     height: 3.5rem;
+    padding-right: 1rem;
+}
+
+.header-element {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: 'Nunito', sans-serif;
+    color: #e9ebee;
+    font-size: 1rem;
+}
+
+.sign-up {
+    background-color: #f6ae2e;
+    padding: 15px 30px 15px 30px;
+    border-radius: 10px;
+}
+
+.divider {
+    flex-grow: 1;
 }

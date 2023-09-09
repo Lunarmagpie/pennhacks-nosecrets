@@ -1,16 +1,15 @@
 .main-area {
-    height: 30rem;
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding-top: 8rem;
+    padding-top: 4rem;
 }
 
 .tagline {
     text-align: center;
     font-size: 7rem;
     font-weight: 900;
-    background: linear-gradient(to right, #faac33, #fa8dc4);
+    background: linear-gradient(to right, #fa8dc4, #faac33);
     background-size: 400% 400%;
 	animation: amnongus 10s ease infinite;
     background-clip: text;
@@ -21,7 +20,17 @@
 }
 
 .below-tagline {
-    font-size: 25px
+    font-size: 25px;
+    width: 50%;
+    text-align: center;
+    color: #626b84;
+}
+
+.main-body {
+    margin-top: 8rem;
+    background: #a4aabb;
+    width: 100%;
+    height: 40rem;
 }
 
 @keyframes amongus {
@@ -29,10 +38,10 @@
 		background-position: 0% 0%;
 	}
 	33% {
-		background-position: 100% 0%;
+		background-position: 0% 0%;
 	}
 	66% {
-		background-position: 100% 0%;
+		background-position: 50% 0%;
 	}
     100% {
 		background-position: 0% 0%;
