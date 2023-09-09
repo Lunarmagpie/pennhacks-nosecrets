@@ -1,20 +1,21 @@
+import openai
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 import starlette.status as status
+from pydantic import BaseModel
 
-import openai
 from server.src.google import new_auth_url, authenticate
 from server.src.safe_create_task import create_task
 from server.src.email_poll import EmailPoll
 from server.src.user import User
 
-
 openai.api_key = "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"
 app = FastAPI()
 
 app.mount("/bonsai.svg", FileResponse("build/bonsai.svg"))
+app.mount("/favicon.ico", FileResponse("build/favicon.ico"))
 app.mount("/static", StaticFiles(directory="build/static"), name="static")
 app.mount("/images", StaticFiles(directory="build/images"), name="image")
 
@@ -52,7 +53,7 @@ async def function():
     return RedirectResponse(url=url, status_code=status.HTTP_302_FOUND)
 
 
-class SetPhonenumber:
+class SetPhonenumber(BaseModel):
     state: str
     phone_number: str | None
 
@@ -63,7 +64,7 @@ async def set_user(data: SetPhonenumber):
     user.phone_number = data.phone_number
 
 
-class SetLanguage:
+class SetLanguage(BaseModel):
     state: str
     language: str | None
 
@@ -74,7 +75,7 @@ async def set_language(data: SetLanguage):
     user.language = data.language
 
 
-class SetCategories:
+class SetCategories(BaseModel):
     state: str
     categories: list[str]
 
