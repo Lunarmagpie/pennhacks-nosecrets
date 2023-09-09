@@ -63,7 +63,9 @@ export default class MainArea extends React.Component {
             Automatically translate emails from different languages into your
             native language to allow you to communicate with more people.
           </div>
-          <div className="image-cell">Div</div>
+          <div className="image-cell">
+            <img src="images/network.svg" className="cell-image"></img>
+          </div>
           <div className="image-cell">Div</div>
           <div className="text-cell">
             <div className="title important gradient-text">
@@ -73,6 +75,7 @@ export default class MainArea extends React.Component {
             language models.
           </div>
         </div>
+        <div className="header-element sign-up">Sign Up</div>
       </div>
     );
   }
