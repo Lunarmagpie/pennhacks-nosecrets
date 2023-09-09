@@ -45,6 +45,7 @@ async def profile(
     )
 
     create_task(EmailPoll(user).start())
+    return FileResponse("build/index.html")
 
 
 @app.get("/login")

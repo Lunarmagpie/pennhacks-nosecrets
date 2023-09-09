@@ -35,6 +35,11 @@
     font-weight: 600;
 }
 
+a { 
+    text-decoration: none;
+    color: white;
+}
+
 .divider {
     flex-grow: 1;
 }
