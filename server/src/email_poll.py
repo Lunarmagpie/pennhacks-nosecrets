@@ -1,6 +1,7 @@
 import asyncio
 import datetime
 import logging
+import traceback
 
 from server.src.user import User
 from server.src.google import Email, get_emails
@@ -16,21 +17,30 @@ class EmailPoll:
         self.tracked_emails = set()
 
     async def start(self):
+        print("STARTING")
         while True:
-            await asyncio.sleep(10)
+            try:
+                print("HERE")
+                recent_emails = get_emails(
+                    self.user.cred,
+                    after=datetime.datetime.now() - datetime.timedelta(seconds=15),
+                )
 
-            recent_emails = get_emails(
-                self.user.cred,
-                after=datetime.datetime.now() - datetime.timedelta(seconds=15),
-            )
+                emails = list(
+                    filter(
+                        lambda email: email not in self.tracked_emails, recent_emails
+                    )
+                )
 
-            emails = list(
-                filter(lambda email: email not in self.tracked_emails, recent_emails)
-            )
+                print(emails)
 
-            for email in emails:
-                self.tracked_emails.add(email)
-                create_task(self.on_new_email(email))
+                for email in emails:
+                    self.tracked_emails.add(email)
+                    create_task(self.on_new_email(email))
+
+                await asyncio.sleep(10)
+            except Exception as e:
+                traceback.print_exception(e)
 
     async def on_new_email(self, email: Email):
         logger.debug(email)

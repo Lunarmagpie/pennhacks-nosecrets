@@ -5,6 +5,7 @@ import Home from "./Home";
 import Main2 from "./Main2";
 import Menubar from "./components/menubar";
 import Main from "./components/main";
+import Settings from "./components/Settings"
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
             element={
               <>
                 <Menubar />
-                "HELLO EVEYRNYAN"
+                <Settings />
               </>
             }
           />

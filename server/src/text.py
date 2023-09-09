@@ -17,6 +17,12 @@ client = Client(ACCOUNT_SID, AUTH_TOKEN)
 async def text_email(user: User, email: Email):
     summary = await summarize(email.subject, email.body)
 
+    if user.whitelist and not await is_in_category(summary, user.whitelist):
+        return
+
+    if user.blacklist and await is_in_category(summary, user.blacklist):
+        return
+
     if user.language:
         summary = await translate(summary, user.language)
 
@@ -26,7 +32,7 @@ async def text_email(user: User, email: Email):
             client.messages.create,
             to=user.phone_number,
             from_=PHONE_NUMBER,
-            body=f"Email from {email.sender}\n{summary}",
+            body=f"🪴 Email from {email.sender} - {summary} - 🔗 {email.url}",
         ),
     )
 
@@ -58,3 +64,17 @@ async def summarize(subject: str, body: str) -> str:
 
 async def translate(text: str, language: str) -> str:
     return await ask_ai(f"Translate this text into {language}.\n{text}")
+
+
+async def is_in_category(text: str, categories: list[str]) -> bool:
+    if not categories:
+        return False
+
+    response = await ask_ai(
+        f'Answer the following question with "yes" or "no".'
+        "Would it be appropriate to place the following message in any of the"
+        f"following categories: {', '.join(categories)}"
+        f"\n{text}"
+    )
+
+    return "yes" in response.lower()
