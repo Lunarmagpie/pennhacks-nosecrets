@@ -89,4 +89,3 @@ async def set_whitelist(data: SetCategories):
 async def set_blacklist(data: SetCategories):
     user = User.from_state(data.state)
     user.blacklist = data.items
-
