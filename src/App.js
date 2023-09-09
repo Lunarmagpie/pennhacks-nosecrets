@@ -25,7 +25,7 @@ function App() {
             element={
               <>
                 <Menubar />
-                "HELLO EVEYRNYAN"
+                <Main2 />
               </>
             }
           />

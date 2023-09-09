@@ -61,15 +61,13 @@ export default class MainArea extends React.Component {
             <div className="title important gradient-text">
               Increase Productivity
             </div>
-            Connect your email to your phone to send you quick and readable
-            notifications.
+            Sync your email with your phone for snappy, easy-to-digest alerts that keep you in the loop, effortlessly!
           </div>
           <div className="text-cell reversed">
             <div className="title important reversed gradient-text">
               Network
             </div>
-            Automatically translate emails from different languages into your
-            native language to allow you to communicate with more people.
+            Auto-translate emails into your native tongue, effortlessly breaking language barriers and expanding your global connections!
           </div>
           <div className="image-cell">
             <img src="images/network.svg" className="cell-image"></img>
@@ -79,8 +77,7 @@ export default class MainArea extends React.Component {
             <div className="title important gradient-text">
               AI-Powered Analytics
             </div>
-            Track your emails using Bonsai's analytics leveraging powerful
-            language models.
+            Unlock email insights with Bonsai's analytics, supercharged by cutting-edge language models!
           </div>
         </div>
         <div className="header-element sign-up">Sign Up</div>
