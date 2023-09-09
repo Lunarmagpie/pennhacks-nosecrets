@@ -4,7 +4,7 @@ import "./main.css";
 export default class MainArea extends React.Component {
   render() {
     return (
-      <div class="main-area">
+      <div className="main-area">
         {/* Animation Background */}
       <div className="background__animation">
         <div className="bg-circles">
@@ -24,16 +24,16 @@ export default class MainArea extends React.Component {
         </div>
       </div>
         {/* Main Content */}
-        <div class="tagline">
+        <div className="tagline">
           AI Powered Mail.
           <br />
           AI Powered Future.
         </div>
-        <div class="below-tagline">
+        <div className="below-tagline">
           Use Bonsai's AI technology to send short summaries of your important
           emails straight to your phone.
         </div>
-        <div class="main-body"></div>
+        <div className="main-body"></div>
       </div>
     );
   }
