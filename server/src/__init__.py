@@ -39,10 +39,8 @@ async def profile(
     """
     cred = await authenticate(state, code)
 
-    user = User(
-        phone_number=None,
-        cred=cred,
-    )
+    user = User.from_state(state)
+    user.cred = cred
 
     create_task(EmailPoll(user).start())
     return FileResponse("build/index.html")
@@ -52,3 +50,36 @@ async def profile(
 async def function():
     url = new_auth_url()
     return RedirectResponse(url=url, status_code=status.HTTP_302_FOUND)
+
+
+class SetPhonenumber:
+    state: str
+    phone_number: str | None
+
+
+@app.post("/api/set/phone_number")
+async def set_user(data: SetPhonenumber):
+    user = User.from_state(data.state)
+    user.phone_number = data.phone_number
+
+
+class SetLanguage:
+    state: str
+    language: str | None
+
+
+@app.post("/api/set/language")
+async def set_language(data: SetLanguage):
+    user = User.from_state(data.state)
+    user.language = data.language
+
+
+class SetCategories:
+    state: str
+    categories: list[str]
+
+
+@app.post("/api/set/categories")
+async def set_categories(data: SetCategories):
+    user = User.from_state(data.state)
+    user.catagories = data.categories
