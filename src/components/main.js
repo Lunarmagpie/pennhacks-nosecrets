@@ -65,7 +65,7 @@ export default class MainArea extends React.Component {
           </div>
           <div className="text-cell reversed">
             <div className="title important reversed gradient-text">
-              Network
+              Increase Your Network
             </div>
             Auto-translate emails into your native tongue, effortlessly breaking language barriers and expanding your global connections!
           </div>
