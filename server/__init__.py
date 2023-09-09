@@ -6,7 +6,7 @@ import starlette.status as status
 
 import datetime
 
-from backend.google import get_emails, new_auth_url, authenticate
+from server.google import get_emails, new_auth_url, authenticate
 
 
 app = FastAPI()

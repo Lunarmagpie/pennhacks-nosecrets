@@ -19,7 +19,7 @@ from googleapiclient.discovery import build
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 REDIRECT_URL = "http://localhost:3000/profile"
 
-with open("backend/client_secret.json") as f:
+with open("server/client_secret.json") as f:
     CLIENT_SECRETS = json.load(f)
 
 
