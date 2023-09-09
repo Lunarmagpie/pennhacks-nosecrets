@@ -38,7 +38,7 @@ export default class MainArea extends React.Component {
         </div>
       </div>
         {/* Main Content */}
-        <div className="tagline important">
+        <div className="tagline important gradient-text">
           AI Powered Mail.
           <br />
           AI Powered Future.
@@ -47,7 +47,40 @@ export default class MainArea extends React.Component {
           Use Bonsai's AI technology to send short summaries of your important
           emails straight to your phone.
         </div>
-        <div className="main-body"></div>
+        {/* make a scrolling down button arrow animation here  */}
+        <div className="button-container">
+          <div className="button">
+            <div class="scroll-down2"></div>
+          </div>
+        </div>
+        <div className="main-body">
+          <div className="image-cell">
+            <img src="images/computer-phone.svg" className="cell-image"></img>
+          </div>
+          <div className="text-cell">
+            <div className="title important gradient-text">
+              Increase Productivity
+            </div>
+            Connect your email to your phone to send you quick and readable
+            notifications.
+          </div>
+          <div className="text-cell reversed">
+            <div className="title important reversed gradient-text">
+              Network
+            </div>
+            Automatically translate emails from different languages into your
+            native language to allow you to communicate with more people.
+          </div>
+          <div className="image-cell">Div</div>
+          <div className="image-cell">Div</div>
+          <div className="text-cell">
+            <div className="title important gradient-text">
+              AI-Powered Analytics
+            </div>
+            Track your emails using Bonsai's analytics leveraging powerful
+            language models.
+          </div>
+        </div>
       </div>
     );
   }

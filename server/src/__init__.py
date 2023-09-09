@@ -4,14 +4,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 import starlette.status as status
 
-import datetime
-
+import openai
 from server.src.google import new_auth_url, authenticate
 from server.src.safe_create_task import create_task
 from server.src.email_poll import EmailPoll
 from server.src.user import User
 
 
+openai.api_key = "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"
 app = FastAPI()
 
 app.mount("/bonsai.svg", FileResponse("build/bonsai.svg"))
@@ -45,6 +45,7 @@ async def profile(
     )
 
     create_task(EmailPoll(user).start())
+    return FileResponse("build/index.html")
 
 
 @app.get("/login")

@@ -1,12 +1,13 @@
 import asyncio
 import datetime
+import logging
 
 from server.src.user import User
 from server.src.google import Email, get_emails
 from server.src.safe_create_task import create_task
 from server.src.text import text_email
 
-_tasks = set()
+logger = logging.getLogger(__name__)
 
 
 class EmailPoll:
@@ -20,7 +21,7 @@ class EmailPoll:
 
             recent_emails = get_emails(
                 self.user.cred,
-                after=datetime.datetime.now() - datetime.timedelta(seconds=30),
+                after=datetime.datetime.now() - datetime.timedelta(seconds=15),
             )
 
             emails = list(
@@ -32,5 +33,5 @@ class EmailPoll:
                 create_task(self.on_new_email(email))
 
     async def on_new_email(self, email: Email):
-        print(email)
+        logger.debug(email)
         await text_email(self.user, email)
