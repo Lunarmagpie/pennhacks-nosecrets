@@ -39,7 +39,7 @@ export default class MainArea extends React.Component {
         </div>
       </div>
         {/* Main Content */}
-        <div className="tagline">
+        <div className="tagline important">
           AI Powered Mail.
           <br />
           AI Powered Future.
