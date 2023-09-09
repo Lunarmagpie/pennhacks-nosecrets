@@ -11,11 +11,18 @@ from server.src.google import get_emails, new_auth_url, authenticate
 
 app = FastAPI()
 
+app.mount("/bonsai.svg", FileResponse("build/bonsai.svg"))
 app.mount("/static", StaticFiles(directory="build/static"), name="static")
+app.mount("/images", StaticFiles(directory="build/images"), name="image")
+
+
+@app.get("/")
+async def index():
+    return FileResponse("build/index.html")
 
 
 @app.get("/profile")
-async def index(
+async def profile(
     state: str | None = None, code: str | None = None, scope: str | None = None
 ):
     """
