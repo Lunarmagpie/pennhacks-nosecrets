@@ -17,7 +17,7 @@
     cursor: pointer;
     margin-left: 20px;
     margin-right: 20px;
-    font-family: 'Nunito', sans-serif;
+    font-family: inherit;
     color: #e9ebee;
     font-size: 1rem;
 }
