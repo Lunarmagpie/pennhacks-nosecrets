@@ -6,7 +6,6 @@ export default class MainArea extends React.Component {
     return (
       <div className="main-area">
         {/* Animation Background */}
-      {/* .background_graphics */}
       <div className="background__graphics">
       <svg class="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]" viewBox="0 0 1155 678" xmlns="http://www.w3.org/2000/svg">
         <path fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)" fill-opacity=".3" d="M0 0 L0 678 L1155 678 L1155 0 Q 1000 200, 800 100 Q 600 0, 400 100 Q 200 200, 0 0 Z"></path>
