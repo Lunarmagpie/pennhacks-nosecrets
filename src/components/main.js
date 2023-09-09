@@ -117,41 +117,20 @@ export default class MainArea extends React.Component {
 						Unlock email insights with Bonsai's analytics, supercharged by
 						cutting-edge language models!
 					</div>
-          <div className="text-cell">
-						<div className="title important gradient-text">
-            Intelligent Spam Filter
-						</div>
-						Say goodbye to junk! Our advanced filters sift out spam, so you only see what matters.
-					</div>
-          <div className="image-cell">Div</div>
-          <div className="image-cell">
-            Div
-          </div>
-          <div className="text-cell">
-            <div className="title important gradient-text">
-            Instant Alerts
-            </div>
-            Don't miss a beat! Get real-time, concise text alerts for your most important emails.
-          </div>
+
           <br /><br />
           
 				</div>
 
         
 				{/* Footer  */}
-
-				<div className="footer">
-					<div className="footer-element">About</div>
-					<div className="footer-element">For Buisness</div>
-					<div className="footer-element">Plans and Pricing</div>
-					<div className="footer-element">Support</div>
-				</div>
-				<div className="divider"></div>
-				<div className="header-element login">
-					<a href="/login">Log in</a>
-				</div>
-
-				<div className="header-element sign-up">Sign Up</div>
+        <div className="footer">
+          <div className="footer-text">
+            <div className="footer-title">Bonsai</div>
+            <div className="footer-subtitle">AI Powered Mail</div>
+            <div className="footer-subtitle">AI Powered Future</div>
+          </div>
+        </div>
 			</div>
 		);
 	}
