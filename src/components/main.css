@@ -97,9 +97,11 @@
         opacity: 0;
     }
 }
+
 .main-body {
     margin-top: 22rem;
-    padding-top: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     background: #e0e3e7;
     width: 100%;
     height: 100%;
@@ -152,6 +154,29 @@
 
 }
 
+.bottom-section {
+    background: #4A5982;
+    width: 100%;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+
+.sign-up-b {
+    cursor: pointer;
+    background-color: #e9a42d;
+    padding: 15px 30px 15px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    width: 220px;
+    text-align: center;
+    font-size: 25px;
+}
 
 /* Animations of logos */
 @keyframes fadeOut {

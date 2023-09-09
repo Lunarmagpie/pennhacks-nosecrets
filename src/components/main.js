@@ -64,7 +64,7 @@ export default class MainArea extends React.Component {
           </div>
           <div className="text-cell reversed">
             <div className="title important reversed gradient-text">
-              Increase Your Network
+              Expand Your Network
             </div>
             Auto-translate emails into your native tongue, effortlessly breaking
             language barriers and expanding your global connections!
@@ -86,7 +86,13 @@ export default class MainArea extends React.Component {
           <br />
           <br />
         </div>
-
+        <div className="bottom-section">
+          <p>
+            Bonsai isn't available to the public yet, but you can join our
+            waitlist to have the first chance to sign up as soon as we go live.
+          </p>
+          <div className="header-element sign-up-b">Join our Waitlist</div>
+        </div>
         {/* Footer  */}
         <div className="footer">
           <div className="footer-text">

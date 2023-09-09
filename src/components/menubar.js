@@ -14,7 +14,7 @@ export default class Menubar extends React.Component {
         <div className="header-element login">
           <a href="/login">Log in</a>
         </div>
-        <div className="header-element sign-up">Sign Up</div>
+        <div className="header-element sign-up">Join our Waitlist</div>
       </div>
     );
   }
