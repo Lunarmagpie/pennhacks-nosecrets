@@ -14,17 +14,25 @@
 }
 
 .header-element {
-    margin-left: 10px;
-    margin-right: 10px;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-right: 20px;
     font-family: 'Nunito', sans-serif;
     color: #e9ebee;
     font-size: 1rem;
 }
 
 .sign-up {
-    background-color: #f6ae2e;
+    cursor: pointer;
+    background-color: #e9a42d;
     padding: 15px 30px 15px 30px;
     border-radius: 10px;
+    font-weight: 600;
+}
+
+.login {
+    cursor: pointer;
+    font-weight: 600;
 }
 
 .divider {

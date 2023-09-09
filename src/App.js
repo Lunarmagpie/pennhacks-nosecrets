@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 

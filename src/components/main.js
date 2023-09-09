@@ -5,6 +5,25 @@ export default class MainArea extends React.Component {
   render() {
     return (
       <div class="main-area">
+        {/* Animation Background */}
+      <div className="background__animation">
+        <div className="bg-circles">
+          <div className="circle-1">
+            <img src={process.env.PUBLIC_URL + "/images/gmail.png"} alt="gmail logo" />
+          </div>
+          <div className="circle-2"></div>
+          <div className="circle-3">
+            <img src={process.env.PUBLIC_URL + "/images/gpt_logo.png"} alt="gpt logo" />
+          </div>
+          <div className="circle-4">
+            <img src={process.env.PUBLIC_URL + "/images/gpt_logo.png"} alt="gpt logo" />
+          </div>
+          <div className="effect-1">
+            <img src={process.env.PUBLIC_URL + "/images/gmail.png"} alt="gmail logo" />
+          </div>
+        </div>
+      </div>
+        {/* Main Content */}
         <div class="tagline">
           AI Powered Mail.
           <br />
