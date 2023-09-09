@@ -6,25 +6,37 @@ export default class MainArea extends React.Component {
     return (
       <div className="main-area">
         {/* Animation Background */}
-      <div className="background__animation">
-        <div className="bg-circles">
-          <div className="circle-1">
-            <img src={process.env.PUBLIC_URL + "/images/gmail.png"} alt="gmail logo" />
-          </div>
-          <div className="circle-2"></div>
-          <div className="circle-3">
-            <img src={process.env.PUBLIC_URL + "/images/gpt_logo.png"} alt="gpt logo" />
-          </div>
-          <div className="circle-4">
-            <img src={process.env.PUBLIC_URL + "/images/gpt_logo.png"} alt="gpt logo" />
-          </div>
-          <div className="effect-1">
-            <img src={process.env.PUBLIC_URL + "/images/gmail.png"} alt="gmail logo" />
+        <div className="background__animation">
+          <div className="bg-circles">
+            <div className="circle-1">
+              <img
+                src={process.env.PUBLIC_URL + "/images/gmail.png"}
+                alt="gmail logo"
+              />
+            </div>
+            <div className="circle-2"></div>
+            <div className="circle-3">
+              <img
+                src={process.env.PUBLIC_URL + "/images/gpt_logo.png"}
+                alt="gpt logo"
+              />
+            </div>
+            <div className="circle-4">
+              <img
+                src={process.env.PUBLIC_URL + "/images/gpt_logo.png"}
+                alt="gpt logo"
+              />
+            </div>
+            <div className="effect-1">
+              <img
+                src={process.env.PUBLIC_URL + "/images/gmail.png"}
+                alt="gmail logo"
+              />
+            </div>
           </div>
         </div>
-      </div>
         {/* Main Content */}
-        <div className="tagline">
+        <div className="tagline important">
           AI Powered Mail.
           <br />
           AI Powered Future.
