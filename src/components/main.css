@@ -1,0 +1,41 @@
+.main-area {
+    height: 30rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 8rem;
+}
+
+.tagline {
+    text-align: center;
+    font-size: 7rem;
+    font-weight: 900;
+    background: linear-gradient(to right, #faac33, #fa8dc4);
+    background-size: 400% 400%;
+	animation: amnongus 10s ease infinite;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation-name: amongus;
+    animation-duration: 10s;
+}
+
+.below-tagline {
+    font-size: 25px
+}
+
+@keyframes amongus {
+	0% {
+		background-position: 0% 0%;
+	}
+	33% {
+		background-position: 100% 0%;
+	}
+	66% {
+		background-position: 100% 0%;
+	}
+    100% {
+		background-position: 0% 0%;
+	}
+
+}

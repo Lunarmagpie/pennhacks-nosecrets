@@ -1,0 +1,13 @@
+.main {
+    height: 5rem;
+    background-color: #293044;
+    align-items: center;
+    display: flex;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    color: white;
+}
+
+.logo {
+    height: 3.5rem;
+}
