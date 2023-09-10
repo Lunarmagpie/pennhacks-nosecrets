@@ -14,12 +14,19 @@ class Mongo:
         )
         self.database = self.client.get_default_database()
 
-    def save_user(self, user: User):
-        self.database.command(
-            {
-                
-            }
-        )
+    async def load_users(self) -> list[User]:
+        """Load all of the users that are currently in the database."""
+
+    async def save_user(self, user: User):
+        self.database.command({})
+
+    async def save_newest_snip(
+        self, *, user: User, email: str, summary: str, link: str
+    ):
+        """Save the newest snip for a user to the database."""
+
+    async def fetch_snips(self, user: User) -> list[tuple(str, str, str)]:
+        """Load the top 100 most recent snips for a user"""
 
 
 MONGO = Mongo()
