@@ -14,7 +14,7 @@ function App() {
             element={
               <>
                 <Menubar />
-                <Settings />
+                <Main />
               </>
             }
           />

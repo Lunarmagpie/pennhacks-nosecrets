@@ -35,18 +35,14 @@ const languages = [
 
 function Settings() {
   let [data, setData] = useState({
-    phone: "",
+    phone_number: "",
     language: "English",
-    wList: "",
-    bList: "",
+    whitelist: "",
+    blacklist: "",
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={() => onSubmit(data)}>
       <label for="phone_number">Phone Number:</label>
       <br />
       <input
@@ -54,11 +50,11 @@ function Settings() {
         id="phone_number"
         onChange={(e) => {
           let d = { ...data };
-          d.phone = e.target.value;
+          d.phone_number = e.target.value;
           setData(d);
         }}
         name="phone_number"
-        value={data.phone}
+        value={data.phone_number}
       />
       <br />
 
@@ -82,13 +78,13 @@ function Settings() {
       <input
         onChange={(e) => {
           let d = { ...data };
-          d.wList = e.target.value;
+          d.whitelist = e.target.value;
           setData(d);
         }}
         type="text"
         id="whitelist"
         name="whitelist"
-        value={data.wList}
+        value={data.whitelist}
         placeholder="Work, Youtube, ect."
       />
       <br />
@@ -98,13 +94,13 @@ function Settings() {
       <input
         onChange={(e) => {
           let d = { ...data };
-          d.bList = e.target.textContent;
+          d.blacklist = e.target.textContent;
           setData(d);
         }}
         type="text"
         id="blacklist"
         name="blacklist"
-        value={data.bList}
+        value={data.blacklist}
         placeholder="TikTok, School, ect."
       />
       <br />
@@ -114,18 +110,21 @@ function Settings() {
   );
 }
 
-function onSubmit() {
-  console.log("Submit");
-
-  let phone_number = document.getElementById("phone_number");
-  let language = document.getElementById("language");
-  let whitelist = document.getElementById("whitelist");
-  let blacklist = document.getElementById("blacklist");
-
-  console.log(phone_number);
-  console.log(language);
-  console.log(whitelist);
-  console.log(blacklist);
+async function onSubmit(data) {
+  console.log(data)
+  // await fetch("", {
+  //   method: "POST", // *GET, POST, PUT, DELETE, etc.
+  //   mode: "cors", // no-cors, *cors, same-origin
+  //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+  //   credentials: "same-origin", // include, *same-origin, omit
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     // 'Content-Type': 'application/x-www-form-urlencoded',
+  //   },
+  //   redirect: "follow", // manual, *follow, error
+  //   referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+  //   body: JSON.stringify(data), // body data type must match "Content-Type" header
+  // });
 }
 
 export default class ProfileArea extends Component {
