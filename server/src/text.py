@@ -8,6 +8,8 @@ import typing as t
 from twilio.rest import Client
 
 from server.src.google import Email
+from server.src.safe_create_task import create_task
+from server.src.mongo import MONGO
 
 if t.TYPE_CHECKING:
     from server.src.user import User
@@ -31,6 +33,12 @@ async def text_email(user: User, email: Email):
 
     if user.language:
         summary = await translate(summary, user.language)
+
+    create_task(
+        MONGO.save_newest_snip(
+            user=user, email=email.sender, summary=summary, link=email.url
+        )
+    )
 
     await asyncio.get_event_loop().run_in_executor(
         None,

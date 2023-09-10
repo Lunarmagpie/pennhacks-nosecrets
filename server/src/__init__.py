@@ -2,7 +2,7 @@ import openai
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, JSONResponse
 import starlette.status as status
 from pydantic import BaseModel
 from contextlib import asynccontextmanager
@@ -71,9 +71,20 @@ class UpdateUser(BaseModel):
 
 
 @app.post("/api/update_user")
-async def set_user(data: UpdateUser):
+async def upate_user(data: UpdateUser):
     user = User.from_state(data.state)
     user.phone_number = data.phone_number
     user.whitelist = data.wishlist
     user.blacklist = data.blacklist
     MONGO.save_user(user)
+
+
+@app.get("/api/snips/{state:str}")
+async def get_snips(state: str):
+    """
+    Returns
+    [{"email": str, "summary": str, "link": str}]
+    """
+    user = User.from_state(state)
+    snips = list(map(User.to_json, await MONGO.fetch_snips(user)))
+    return JSONResponse(snips)

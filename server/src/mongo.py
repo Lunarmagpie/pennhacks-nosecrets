@@ -1,8 +1,13 @@
+from __future__ import annotations
+
 import pymongo
 import time
 import asyncio
-from server.src.user import User
-from server.src.snip import Snip
+import typing as t
+
+if t.TYPE_CHECKING:
+    from server.src.user import User
+    from server.src.snip import Snip
 
 USER = "bonsaidb"
 PASSWORD = "b0P3GyIDgGZyq1dj"
@@ -20,6 +25,7 @@ class Mongo:
 
     async def load_users(self) -> list[User]:
         """Load all of the users that are currently in the database."""
+        from server.src.user import User
         return list(
             map(
                 User.from_json,
@@ -30,11 +36,9 @@ class Mongo:
         )
 
     async def save_user(self, user: User):
-        print("saving user")
-
         def save_user():
             if self.users_collection.count_documents({"email": user.email}) >= 1:
-                    self.users_collection.replace_one({"email": user.email}, user.to_json())
+                self.users_collection.replace_one({"email": user.email}, user.to_json())
             else:
                 self.users_collection.insert_one(user.to_json())
 
@@ -42,7 +46,6 @@ class Mongo:
             None,
             save_user,
         )
-        print("user saved")
 
     async def save_newest_snip(
         self, *, user: User, email: str, summary: str, link: str
@@ -62,6 +65,7 @@ class Mongo:
 
     async def fetch_snips(self, user: User) -> list[Snip]:
         """Load the top 100 most recent snips for a user"""
+        from server.src.snip import Snip
 
         def snip_to_snip(data):
             return Snip(
@@ -73,7 +77,7 @@ class Mongo:
         return list(
             map(
                 snip_to_snip,
-                await asyncio.get_event_loop().run_until_complete(
+                await asyncio.get_event_loop().run_in_executor(
                     None,
                     lambda: self.snippets_collection.find({"user": user.email})
                     .sort("data", pymongo.ASCENDING)
