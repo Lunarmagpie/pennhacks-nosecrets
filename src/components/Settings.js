@@ -136,7 +136,7 @@ export default function Profile() {
   let [settle, setSettle] = useState(null);
 
   useState(() => {
-    onGet().then((res) => setSettle(res.json()));
+    onGet().then((res) => setSettle(res));
   }, []);
 
   return (
