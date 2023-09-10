@@ -42,7 +42,7 @@ function Settings() {
   });
 
   return (
-    <form onSubmit={() => onSubmit(data)}>
+    <form onSubmit={(e) => onSubmit(e, data)}>
       <label for="phone_number">Phone Number:</label>
       <br />
       <input
@@ -105,26 +105,24 @@ function Settings() {
       />
       <br />
 
-      <input type="submit" class="settings-button" value="Save" />
+      <input
+        type="submit"
+        class="settings-button"
+        value="Save"
+        onsubmit={() => {}}
+      />
     </form>
   );
 }
 
-async function onSubmit(data) {
-  console.log(data)
-  // await fetch("", {
-  //   method: "POST", // *GET, POST, PUT, DELETE, etc.
-  //   mode: "cors", // no-cors, *cors, same-origin
-  //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-  //   credentials: "same-origin", // include, *same-origin, omit
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     // 'Content-Type': 'application/x-www-form-urlencoded',
-  //   },
-  //   redirect: "follow", // manual, *follow, error
-  //   referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-  //   body: JSON.stringify(data), // body data type must match "Content-Type" header
-  // });
+async function onSubmit(e, data) {
+  e.preventDefault()
+  let state = new URL(document.location).searchParams.get("state");
+  await fetch("/api/update_user/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...data, state }),
+  });
 }
 
 export default class ProfileArea extends Component {

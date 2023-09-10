@@ -66,7 +66,8 @@ async def function():
 class UpdateUser(BaseModel):
     state: str
     phone_number: str | None
-    wishlist: str | None
+    language: str | None
+    whitelist: str | None
     blacklist: str | None
 
 
@@ -74,9 +75,10 @@ class UpdateUser(BaseModel):
 async def upate_user(data: UpdateUser):
     user = User.from_state(data.state)
     user.phone_number = data.phone_number
-    user.whitelist = data.wishlist
+    user.whitelist = data.whitelist
+    user.language = data.language
     user.blacklist = data.blacklist
-    MONGO.save_user(user)
+    await MONGO.save_user(user)
 
 
 @app.get("/api/snips/{state:str}")
