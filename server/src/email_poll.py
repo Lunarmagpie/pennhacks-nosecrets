@@ -20,7 +20,6 @@ class EmailPoll:
         print("STARTING")
         while True:
             try:
-                print("HERE")
                 recent_emails = get_emails(
                     self.user.cred,
                     after=datetime.datetime.now() - datetime.timedelta(seconds=15),
@@ -31,8 +30,6 @@ class EmailPoll:
                         lambda email: email not in self.tracked_emails, recent_emails
                     )
                 )
-
-                print(emails)
 
                 for email in emails:
                     self.tracked_emails.add(email)

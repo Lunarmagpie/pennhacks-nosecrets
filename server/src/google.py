@@ -16,7 +16,12 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
 
-SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
+SCOPES = [
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "openid",
+]
 REDIRECT_URL = "http://localhost:3000/profile"
 
 with open("server/client_secret.json") as f:
@@ -40,6 +45,13 @@ async def authenticate(state: str, code: str) -> Credentials:
         None, functools.partial(flow.fetch_token, code=code)
     )
     return Credentials.from_authorized_user_info(flow.client_config | token)
+
+
+def get_user_email(creds: Credentials) -> str:
+    service = build("oauth2", "v2", credentials=creds)
+    info = service.userinfo().get().execute()
+    print(info)
+    return info["email"]
 
 
 def get_emails(creds: Credentials, *, after: datetime.datetime) -> list[Email]:

@@ -4,6 +4,7 @@ google-auth-httplib2
 google-auth-oauthlib
 twilio
 openai
+motor
 uvicorn
 bs4
 lxml
