@@ -63,40 +63,17 @@ async def function():
     return RedirectResponse(url=url, status_code=status.HTTP_302_FOUND)
 
 
-class SetPhonenumber(BaseModel):
+class UpdateUser(BaseModel):
     state: str
     phone_number: str | None
+    wishlist: str | None
+    blacklist: str | None
 
 
-@app.post("/api/set/phone_number")
-async def set_user(data: SetPhonenumber):
+@app.post("/api/update_user")
+async def set_user(data: UpdateUser):
     user = User.from_state(data.state)
     user.phone_number = data.phone_number
-
-
-class SetLanguage(BaseModel):
-    state: str
-    language: str | None
-
-
-@app.post("/api/set/language")
-async def set_language(data: SetLanguage):
-    user = User.from_state(data.state)
-    user.language = data.language
-
-
-class SetCategories(BaseModel):
-    state: str
-    items: str | None
-
-
-@app.post("/api/set/whitelist")
-async def set_whitelist(data: SetCategories):
-    user = User.from_state(data.state)
-    user.whitelist = data.items
-
-
-@app.post("/api/set/blacklist")
-async def set_blacklist(data: SetCategories):
-    user = User.from_state(data.state)
-    user.blacklist = data.items
+    user.whitelist = data.wishlist
+    user.blacklist = data.blacklist
+    MONGO.save_user(user)
