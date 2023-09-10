@@ -6,7 +6,7 @@ from fastapi.responses import RedirectResponse
 import starlette.status as status
 from pydantic import BaseModel
 
-from server.src.google import new_auth_url, authenticate
+from server.src.google import new_auth_url, authenticate, get_user_email
 from server.src.safe_create_task import create_task
 from server.src.email_poll import EmailPoll
 from server.src.user import User
@@ -40,7 +40,7 @@ async def profile(
     """
     cred = await authenticate(state, code)
 
-    user = User.from_state(state)
+    user = User.from_state(state, email=get_user_email(cred))
     user.cred = cred
 
     create_task(EmailPoll(user).start())
@@ -84,6 +84,7 @@ class SetCategories(BaseModel):
 async def set_whitelist(data: SetCategories):
     user = User.from_state(data.state)
     user.whitelist = data.items
+
 
 @app.post("/api/set/blacklist")
 async def set_blacklist(data: SetCategories):
