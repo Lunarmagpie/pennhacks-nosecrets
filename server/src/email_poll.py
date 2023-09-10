@@ -1,12 +1,17 @@
+from __future__ import annotations
+
 import asyncio
 import datetime
 import logging
 import traceback
+import typing as t
 
-from server.src.user import User
 from server.src.google import Email, get_emails
 from server.src.safe_create_task import create_task
 from server.src.text import text_email
+
+if t.TYPE_CHECKING:
+    from server.src.user import User
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +22,6 @@ class EmailPoll:
         self.tracked_emails = set()
 
     async def start(self):
-        print("STARTING")
         while True:
             try:
                 recent_emails = get_emails(

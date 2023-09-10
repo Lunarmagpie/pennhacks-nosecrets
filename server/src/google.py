@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import datetime
-import traceback
 import typing as t
 import dataclasses
 import base64

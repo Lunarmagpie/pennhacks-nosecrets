@@ -1,11 +1,17 @@
+from __future__ import annotations
+
 import asyncio
 import functools
 import openai
+import typing as t
 
 from twilio.rest import Client
 
 from server.src.google import Email
-from server.src.user import User
+
+if t.TYPE_CHECKING:
+    from server.src.user import User
+
 
 ACCOUNT_SID = "AC47543655eaed8d7782356c1f25139c4d"
 AUTH_TOKEN = "8544c65d9d7df8065b8c21151212c1ea"

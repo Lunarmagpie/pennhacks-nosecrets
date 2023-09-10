@@ -5,14 +5,23 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 import starlette.status as status
 from pydantic import BaseModel
+from contextlib import asynccontextmanager
 
 from server.src.google import new_auth_url, authenticate, get_user_email
 from server.src.safe_create_task import create_task
-from server.src.email_poll import EmailPoll
 from server.src.user import User
+from server.src.mongo import MONGO
 
 openai.api_key = "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"
-app = FastAPI()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await MONGO.load_users()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 app.mount("/bonsai.svg", FileResponse("build/bonsai.svg"))
 app.mount("/favicon.ico", FileResponse("build/favicon.ico"))
@@ -43,7 +52,8 @@ async def profile(
     user = User.from_state(state, email=get_user_email(cred))
     user.cred = cred
 
-    create_task(EmailPoll(user).start())
+    create_task(MONGO.save_user(user))
+
     return FileResponse("build/index.html")
 
 
@@ -77,7 +87,7 @@ async def set_language(data: SetLanguage):
 
 class SetCategories(BaseModel):
     state: str
-    items: list[str]
+    items: str | None
 
 
 @app.post("/api/set/whitelist")

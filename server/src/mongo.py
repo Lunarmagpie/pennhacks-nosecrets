@@ -1,7 +1,8 @@
-from motor import motor_asyncio
-
+import pymongo
+import time
+import asyncio
 from server.src.user import User
-
+from server.src.snip import Snip
 
 USER = "bonsaidb"
 PASSWORD = "b0P3GyIDgGZyq1dj"
@@ -9,24 +10,77 @@ PASSWORD = "b0P3GyIDgGZyq1dj"
 
 class Mongo:
     def __init__(self) -> None:
-        self.client = motor_asyncio.AsyncIOMotorClient(
+        self.client = pymongo.MongoClient(
             f"mongodb+srv://{USER}:{PASSWORD}@cluster0.bxfgywb.mongodb.net/?retryWrites=true&w=majority"
         )
-        self.database = self.client.get_default_database()
+        self.database = self.client.get_database("database")
+
+        self.users_collection = self.database.get_collection("users")
+        self.snippets_collection = self.database.get_collection("snippets")
 
     async def load_users(self) -> list[User]:
         """Load all of the users that are currently in the database."""
+        return list(
+            map(
+                User.from_json,
+                await asyncio.get_event_loop().run_in_executor(
+                    None, lambda: self.users_collection.find({})
+                ),
+            )
+        )
 
     async def save_user(self, user: User):
-        self.database.command({})
+        print("saving user")
+
+        def save_user():
+            if self.users_collection.count_documents({"email": user.email}) >= 1:
+                    self.users_collection.replace_one({"email": user.email}, user.to_json())
+            else:
+                self.users_collection.insert_one(user.to_json())
+
+        await asyncio.get_event_loop().run_in_executor(
+            None,
+            save_user,
+        )
+        print("user saved")
 
     async def save_newest_snip(
         self, *, user: User, email: str, summary: str, link: str
     ):
-        """Save the newest snip for a user to the database."""
+        await asyncio.get_event_loop().run_in_executor(
+            None,
+            lambda: self.snippets_collection.insert_one(
+                {
+                    "user": user.email,
+                    "email": email,
+                    "summary": summary,
+                    "link": link,
+                    "time": time.time(),
+                }
+            ),
+        )
 
-    async def fetch_snips(self, user: User) -> list[tuple(str, str, str)]:
+    async def fetch_snips(self, user: User) -> list[Snip]:
         """Load the top 100 most recent snips for a user"""
+
+        def snip_to_snip(data):
+            return Snip(
+                email=data["email"],
+                summary=data["summary"],
+                link=data["link"],
+            )
+
+        return list(
+            map(
+                snip_to_snip,
+                await asyncio.get_event_loop().run_until_complete(
+                    None,
+                    lambda: self.snippets_collection.find({"user": user.email})
+                    .sort("data", pymongo.ASCENDING)
+                    .limit(100),
+                ),
+            )
+        )
 
 
 MONGO = Mongo()
