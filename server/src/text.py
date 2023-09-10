@@ -19,11 +19,15 @@ ACCOUNT_SID = "AC47543655eaed8d7782356c1f25139c4d"
 AUTH_TOKEN = "8544c65d9d7df8065b8c21151212c1ea"
 PHONE_NUMBER = "+18339430488"
 
+MAX_NORMAL_LENGTH = 30
+
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 
 async def text_email(user: User, email: Email):
-    summary = await summarize(email.subject, email.body)
+    summary = email.body
+    if len(summary) >= MAX_NORMAL_LENGTH:
+        summary = await summarize(email.subject, email.body)
 
     if user.whitelist and not await is_in_category(summary, user.whitelist):
         return
