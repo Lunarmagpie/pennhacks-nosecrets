@@ -116,7 +116,7 @@ function Settings() {
 }
 
 async function onSubmit(e, data) {
-  e.preventDefault()
+  e.preventDefault();
   let state = new URL(document.location).searchParams.get("state");
   await fetch("/api/update_user/", {
     method: "POST",
@@ -125,18 +125,38 @@ async function onSubmit(e, data) {
   });
 }
 
-export default class ProfileArea extends Component {
-  render() {
-    return (
-      <div class="settings-container">
-        <div class="settings-bar">
-          <Settings />
-        </div>
-        <div class="snippets-container">
-          <div>Past snips</div>
-          <div class="snippets-box">{}</div>
+async function onGet() {
+  let state = new URL(document.location).searchParams.get("state");
+  await fetch(`/api/snips/${state}`, {
+    method: "GET",
+  });
+}
+
+export default function Profile() {
+  let [settle, setSettle] = useState(null);
+
+  useState(() => {
+    onGet().then((res) => setSettle(res.json()));
+  }, []);
+
+  return (
+    <div class="settings-container">
+      <div class="settings-bar">
+        <Settings />
+      </div>
+      <div class="snippets-container">
+        <div>Past snips</div>
+        <div class="snippets-box">
+          {settle &&
+            settle.map((x) => (
+              <p>
+                {x.email}
+                {x.summary}
+                {x.link}
+              </p>
+            ))}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
