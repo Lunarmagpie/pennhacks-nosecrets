@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Menubar from "./components/menubar";
 import Main from "./components/main";
-import Settings from "./components/Settings"
+import Settings from "./components/Settings";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
             element={
               <>
                 <Menubar />
-                <Main />
+                <Settings />
               </>
             }
           />
