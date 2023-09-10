@@ -10,6 +10,7 @@ from contextlib import asynccontextmanager
 from server.src.google import new_auth_url, authenticate, get_user_email
 from server.src.safe_create_task import create_task
 from server.src.user import User
+from server.src.snip import Snip
 from server.src.mongo import MONGO
 
 openai.api_key = "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"
@@ -88,5 +89,5 @@ async def get_snips(state: str):
     [{"email": str, "summary": str, "link": str}]
     """
     user = User.from_state(state)
-    snips = list(map(User.to_json, await MONGO.fetch_snips(user)))
+    snips = list(map(Snip.to_json, await MONGO.fetch_snips(user)))
     return JSONResponse(snips)
