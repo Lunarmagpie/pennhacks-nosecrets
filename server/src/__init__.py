@@ -48,14 +48,17 @@ async def profile(
         scope:
             The valid scopes.
     """
-    cred = await authenticate(state, code)
+    try:
+        cred = await authenticate(state, code)
 
-    user = User.from_state(state, email=get_user_email(cred))
-    user.cred = cred
+        user = User.from_state(state, email=get_user_email(cred))
+        user.cred = cred
 
-    create_task(MONGO.save_user(user))
+        create_task(MONGO.save_user(user))
 
-    return FileResponse("build/index.html")
+        return FileResponse("build/index.html")
+    except Exception:
+        return RedirectResponse("/")
 
 
 @app.get("/login")

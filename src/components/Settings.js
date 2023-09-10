@@ -1,4 +1,4 @@
-import { useEffect, useState, useId, Component } from "react";
+import { useEffect, useState, useId, Component, useReducer } from "react";
 import "./Settings.css";
 
 const languages = [
@@ -127,17 +127,30 @@ async function onSubmit(e, data) {
 
 async function onGet() {
   let state = new URL(document.location).searchParams.get("state");
-  await fetch(`/api/snips/${state}`, {
+  console.log(state);
+  return await fetch(`/api/snips/${state}`, {
     method: "GET",
-  });
+  }).then((x) => x.json());
+}
+
+function returnThings(props) {
+  return props.map((prop) => (
+    <p class="snip">
+      🪴 Email from {prop.email} - {prop.summary} - 🔗 {prop.link}
+    </p>
+  ));
 }
 
 export default function Profile() {
   let [settle, setSettle] = useState(null);
 
-  useState(() => {
+  useEffect(() => {
     onGet().then((res) => setSettle(res));
   }, []);
+
+  useEffect(() => {
+    console.log(settle);
+  }, [settle]);
 
   return (
     <div class="settings-container">
@@ -146,16 +159,7 @@ export default function Profile() {
       </div>
       <div class="snippets-container">
         <div>Past snips</div>
-        <div class="snippets-box">
-          {settle &&
-            settle.map((x) => (
-              <p>
-                {x.email}
-                {x.summary}
-                {x.link}
-              </p>
-            ))}
-        </div>
+        <div class="snippets-box">{settle && returnThings(settle)}</div>
       </div>
     </div>
   );
